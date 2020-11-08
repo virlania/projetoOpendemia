@@ -1,0 +1,149 @@
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .topnav {
+        overflow: hidden;
+        background-color: #222255;
+      }
+
+      .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+      }
+
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+
+      .topnav a.active {
+        background-color: #50508f;
+        color: white;
+      }
+
+      .flex-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+
+      <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+      <script type='text/javascript'>
+        google.charts.load('current', {
+          'packages': ['geochart'],
+          // Note: you will need to get a mapsApiKey for your project.
+          // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+          'mapsApiKey': 'AIzaSyBuQRT9AhH-zq4sUrhLzxlcNrAWVrq2UEs'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+          var aux = [];
+          {% for vetor in auxpython %}
+          var temp = [];
+          temp.push('{{vetor.0}}');
+          if (isNaN(parseInt('{{vetor.1}}'))) {
+            temp.push('{{vetor.1}}');
+          } else {
+            temp.push(parseInt('{{vetor.1}}'));
+          }
+          //if (isNaN(parseInt('{{vetor.2}}'))) {
+          //temp.push('{{vetor.2}}');
+          //} else {
+          //temp.push(parseInt('{{vetor.2}}'));
+          //}
+          aux.push(temp);
+          {% endfor %}
+          console.log(aux)
+          var data = google.visualization.arrayToDataTable(aux);
+
+          var options = {
+            //sizeAxis: { minValue: 0, maxValue: 500 },
+            //region: '155', // Western Europe
+            //displayMode: 'markers',
+            colorAxis: { colors: ['#e7711c', '#4374e0'] } // orange to blue
+          };
+
+          var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+          chart.draw(data, options);
+        };
+      </script>
+
+    <body>
+      <div class="topnav">
+        <a class="active" href="http://localhost:8000/geochart/">Início</a>
+        <a href="#opendemia">OpenDemia</a>
+        <a href="#equipe">Equipe</a>
+        <a href="#faleconosco">Fale Conosco</a>
+      </div>
+
+      </br>
+      </br>
+      <fb:login-button style="position: absolute; right: 0px" scope="public_profile,email, user_likes"
+        onlogin="checkLoginState();">
+      </fb:login-button>
+      <div id="regions_div" style="width: 1000px; height: 600px;"></div>
+      <div id="paginas"></div>
+    </body>
+  </head>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>OPENDEMIA</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '697382141093329',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v7.0'
+            });
+            FB.AppEvents.logPageView();
+          };
+
+           (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+
+
+        function statusChangeCallback(response) {
+             if (response.status === 'connected') {
+                console.log("Usuário Autorizado.");
+                window.location.href="https://localhost:8000/geochart/tela2";
+             } else {
+                console.log("Não Autorizado");
+             }
+        }
+
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+              statusChangeCallback(response);
+            });
+        }
+    </script>
+</head>
+
+</html>

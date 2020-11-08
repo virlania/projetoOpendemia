@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+  <html> 
+      <head>
+        <title>Página Facebook</title>
+         
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+             
+        <meta charset="utf-8"/> 
+
+      </head>
+
+      <body>
+        <script>
+        
+        window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '697382141093329',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v7.0'
+            });
+
+            FB.getLoginStatus(function(response){
+                statusChangeCallback(response);
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "https://connect.facebook.net/en_US/sdk.js";
+              fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        function statusChangeCallback(response) {  
+             if (response.status === 'connected') {
+                console.log("Usuário Autorizado.");   
+                testAPI();
+             } else { 
+                console.log("Não Autorizado");                                
+             } 
+        }
+
+        function checkLoginState() {               
+            FB.getLoginStatus(function(response) {   
+              statusChangeCallback(response);
+            });
+        }
+
+        function testAPI() {                   
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('me?fields=likes.limit(10){picture,fan_count,link,name},name,id', function(response) {
+              if(response){
+                console.log(response);
+                percorrePagina(response);
+ 
+              }
+            
+            });
+
+        }
+
+     //function percorrePagina(paginas){
+          //pagina = document.getElementById('paginas');
+
+          //pagina.innerHTML = ''
+      //pagina.innerHTML += paginas.likes.data.length + " " + "<br/>"
+          //for(var i = 0; i < paginas.likes.data.length; i++){
+            //pagina.innerHTML += '<div class="media"> <div class="media-left"><a href="#"> <img class="media-object" src=' + paginas.likes.data[i].picture + ' alt="..."> </a></div> <div class="media-body"> <h4 class="media-heading">' + paginas.likes.data[i].name + '</h4>...</div> </div>'
+      //pagina.innerHTML += paginas.data[i].name + " -- " + paginas.data[i].id +  "<br/>"
+      //pagina.innerHTML +=   paginas.likes.data[i].name  +  "<br/>"
+          //}
+        //}
+
+        </script>
+        <fb:login-button scope="public_profile,email, user_likes" onlogin="checkLoginState();">
+        </fb:login-button>
+
+        <div id="paginas"></div>
+
+      </body>
+  </html>
